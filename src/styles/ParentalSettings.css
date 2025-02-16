@@ -1,0 +1,157 @@
+/* Exit Button (Top-Left) */
+.exit-button {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 50px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.exit-button:hover {
+  transform: scale(1.1);
+}
+
+/* Parent Settings Page */
+.parent-settings-container {
+  width: 80%;
+  margin: 40px auto;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  position: relative;
+}
+
+/* Header Section */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+/* Caregivers Image (Left of Title) */
+.caregivers-img {
+  width: 200px;
+  height: auto;
+}
+
+/* Page Title */
+.title {
+  font-size: 40px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Settings Content */
+.settings-content {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Individual Setting */
+.setting {
+  width: 80%;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+/* Labels for Settings */
+.setting-label {
+  font-size: 20px;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 20px;
+  color: #000000;
+}
+
+/* Dropdown for Reading Level */
+.dropdown {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: white;
+}
+
+/* Time Limit Input */
+.time-limit {
+  display: flex;
+  align-items: center;
+}
+
+.time-input {
+  width: 60px;
+  padding: 5px;
+  font-size: 16px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 5px;
+}
+
+.time-unit {
+  font-size: 16px;
+  color: #666;
+}
+
+/* Toggle Switch */
+.toggle-switch {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
+
+.toggle-switch input {
+  display: none;
+}
+
+.switch {
+  position: relative;
+  width: 50px;
+  height: 25px;
+  background-color: #ccc;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.switch:before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.3s;
+}
+
+input:checked + .switch {
+  background-color: #2dd730;
+}
+
+input:checked + .switch:before {
+  transform: translateX(25px);
+}
+
+/* Information Text */
+.info-text {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* Content Filter Input */
+.content-filter-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}

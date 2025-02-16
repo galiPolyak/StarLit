@@ -1,0 +1,51 @@
+/* Full-page container */
+.container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  flex-direction: column;
+}
+
+/* Centered Logo & Play Button */
+.center-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Logo Styling */
+.logo {
+  max-width: 600px; /* Bigger logo */
+  height: auto;
+}
+
+/* Play Button */
+.play-button {
+  margin-top: 10px; /* Space below logo */
+  max-width: 150px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.play-button:hover {
+  transform: scale(1.1);
+}
+
+/* Parental Control Button */
+.parental-control {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 100px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.parental-control:hover {
+  transform: scale(1.1);
+}
+

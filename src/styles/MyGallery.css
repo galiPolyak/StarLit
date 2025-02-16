@@ -1,0 +1,110 @@
+/* Full-page container */
+.my-gallery-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff;
+  padding: 20px 0;
+  position: fixed;
+
+  /* Lined paper effect */
+  background-color: #fdfaf6; /* Light beige for paper feel */
+  background-image: 
+      linear-gradient(to bottom, rgba(227, 227, 255, 0.4) 3px, transparent 20px); /* Blue lines */
+  background-size: 100% 32px; /* Line spacing */
+  position: relative;
+}
+
+/* My Gallery Image (Title at the Top, Centered) */
+.my-gallery-img {
+  width: 60%;
+  max-width: 700px;
+  margin-top: 30px;
+}
+
+/* Button to Request Access */
+.access-button {
+  background-color: #004B87;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.access-button:hover {
+  background-color: #003366;
+}
+
+/* Image Carousel Container */
+.carousel-container {
+  width: 100%;
+  max-width: 100%;
+  height: 300px;
+  overflow-x: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  scroll-behavior: smooth;
+}
+
+/* Horizontally Scrolling Carousel */
+.carousel {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 15px;
+}
+
+/* Individual Carousel Image */
+.carousel-img {
+  width: full;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.carousel-img:hover {
+  transform: scale(1.1);
+}
+
+/* No Images Text */
+.no-images-text {
+  font-size: 16px;
+  color: #666;
+  text-align: center; /* Centers the text */
+  width: 100%; /* Ensures full width for centering */
+}
+
+/* Hidden File Input */
+.hidden-file-input {
+  display: none;
+}
+
+/* Upload Image (Just an Image, Not a Button) */
+.upload-img {
+  width: 400px;
+}
+
+.home-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 90px; /* Adjust size */
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.home-button:hover {
+  transform: scale(1.1);
+}

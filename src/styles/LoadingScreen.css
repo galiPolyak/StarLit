@@ -1,0 +1,13 @@
+/* Full-screen container */
+.loading-screen {
+    width: 100vw; /* Full width */
+    height: 100vh; /* Full height */
+    position: fixed;
+  }
+  
+  /* Loading image full-width */
+  .loading-image {
+    width: 100%; /* Full width of the screen */
+    height: 100%; /* Auto height to maintain aspect ratio */
+  }
+  

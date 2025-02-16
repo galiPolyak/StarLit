@@ -1,0 +1,75 @@
+/* Main Container */
+.image-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center; /* Centers everything vertically */
+  justify-content: center;
+  background-color: #ffffff;
+  position: fixed;
+
+  /* Lined paper effect */
+  background-color: #fdfaf6; /* Light beige for paper feel */
+  background-image: 
+      linear-gradient(to bottom, rgba(222, 233, 243, 0.5) 3px, transparent 20px); /* Blue lines */
+  background-size: 100% 32px; /* Line spacing */
+  position: relative;
+}
+
+/* Outer Border (Darker Yellow) */
+.image-border-outer {
+  display: inline-block; /* Wraps the border tightly around the inner element */
+  padding: 15px;
+  background-color: #fad763; /* Darker yellow */
+  border-radius: 30px;
+}
+
+/* Inner Border (Lighter Yellow) */
+.image-border-inner {
+  display: inline-block; /* Ensures the border fits the image tightly */
+  padding: 20px;
+  background-color: #fcf6c5; /* Lighter yellow */
+  border-radius: 20px;
+}
+
+/* Large Rectangle Image */
+.large-rectangle-img {
+  max-width: full;
+  height: 600px;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block; /* Ensures no extra spacing */
+}
+
+/* Side Buttons (Exit & Check) */
+.side-button {
+  position: absolute;
+  width: 100px;
+  cursor: pointer;
+  transition: transform 0.2s;
+  top: 50%; /* Aligns buttons to the vertical center */
+  transform: translateY(-50%); /* Centers them perfectly */
+}
+
+.side-button:hover {
+  transform: translateY(-50%) scale(1.1); /* Scale on hover */
+}
+
+/* Exit Button (Left Side) */
+.exit-button {
+  left: -10px;
+}
+
+/* Check Button (Right Side) */
+.check-button {
+  right: -10px;
+}
+
+/* Star Image (Bottom Right) */
+.star-icon {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  width: 400px; /* Adjust as needed */
+}
+
