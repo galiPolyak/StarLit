@@ -9,6 +9,7 @@ import UploadImage from "./UploadImage";
 import ArtWorkDesc from "./ArtWorkDesc";
 import GeminiStory from "./GeminiStory";
 import LoadingScreen from "./LoadingScreen";
+import StoryLibrary from "./StoryLibrary";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -22,6 +23,7 @@ root.render(
       <Route path="/ArtWorkDesc" element={<ArtWorkDesc />} />
       <Route path="/GeminiStory" element={<GeminiStory />} />
       <Route path="/LoadingScreen" element={<LoadingScreen />} />
+      <Route path="/StoryLibrary" element={<StoryLibrary />} />
     </Routes>
   </BrowserRouter>
 );

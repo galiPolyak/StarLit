@@ -1,0 +1,95 @@
+/* Full-page container with consistent background */
+.our-library-container {
+  width: 100vw;
+  min-height: 100vh; /* Ensures background extends fully */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fdfaf6; /* Light beige for paper feel */
+  padding: 20px;
+  
+  /* Lined paper effect */
+  background-image: 
+      linear-gradient(to bottom, rgba(227, 227, 255, 0.4) 3px, transparent 20px);
+  background-size: 100% 32px; /* Line spacing */
+}
+
+/* Home Button */
+.home-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 70px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.home-button:hover {
+  transform: scale(1.1);
+}
+
+/* Library Title Image */
+.our-library-img {
+  width: 80%;  
+  max-width: 800px;
+  height: auto;
+  margin-bottom: 20px;
+  margin-top: 30px;
+}
+
+/* Loading & Error Messages */
+.loading-text, 
+.error-text {
+  font-size: 18px;
+  color: #d9534f;
+  margin-top: 10px;
+}
+
+/* Story List - Displays in a Grid Layout */
+.story-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Bigger cards */
+  gap: 20px;
+  width: 90%;
+  max-width: 1200px;
+  justify-content: center;
+}
+
+/* Story Card - Increased Size */
+.story-card {
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  padding: 15px;
+  background-color: #fff;
+  text-align: center;
+  width: 350px; /* Bigger width */
+  min-height: 450px; /* Taller cards for full text */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Story Title */
+.story-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Story Image */
+.story-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+/* Story Text - Now Fully Visible */
+.story-text {
+  font-size: 16px;
+  color: #333;
+  text-align: justify;
+  white-space: normal;
+  overflow: visible;
+}

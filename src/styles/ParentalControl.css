@@ -1,6 +1,6 @@
 /* Keypad Section (Center-Right) */
 .keypad {
-  padding: 20%;
+  padding: 10%;
 }
 
 /* Keypad Grid */
@@ -98,12 +98,12 @@
 .dob-text {
   color: black;
   font-size: 25px;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
 }
 
 /* Four Stars Image */
 .stars-img {
-  width: 200px;
+  width: 400px;
 }
 
 /* ======================= */
@@ -157,3 +157,41 @@
   background-color: #0056b3;
   transform: scale(1.05);
 }
+
+.error-message {
+  color: red;
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.success-message {
+  color: green;
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 10px;
+  animation: fadeOut 2s ease-in-out;
+}
+
+/* Reset Password Button */
+.reset-password-btn {
+  margin-top: 15px;
+  padding: 8px 15px;
+  font-size: 14px;
+  background-color: #d9534f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.reset-password-btn:hover {
+  background-color: #c9302c;
+}
+
+/* Animation for success message */
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+

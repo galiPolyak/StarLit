@@ -9,7 +9,7 @@ const LoadingScreen = () => {
 
   useEffect(() => {
     const generateStory = async () => {
-      const GEMINI_API_KEY = "-";
+      const GEMINI_API_KEY = process.env.REACT_APP_GEMINI_API_KEY;
       const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
 
       if (!image || !title) {
@@ -36,7 +36,7 @@ const LoadingScreen = () => {
                   { 
                     text: `Create a short story suitable for a ${readingLevel} reading level. 
                            Ensure the story is engaging and avoids the following topics: ${contentFilters}.
-                           The story is based on the artwork titled '${title}' Only write the story.`
+                           The story is based on the artwork titled '${title}' Please start by writing the story only.`
                   },
                   { inline_data: { mime_type: "image/png", data: base64Image } },
                 ],

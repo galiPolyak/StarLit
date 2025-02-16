@@ -28,7 +28,7 @@
 
 /* Story Title */
 .story-title {
-    color: #c88209;
+    color: #472fcf;
     text-transform: uppercase;
     font-size: 70px;
     font-weight: bold;
@@ -152,4 +152,11 @@
   
   .home-button:hover {
     transform: scale(1.1);
+  }
+
+  .font-size-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
   }

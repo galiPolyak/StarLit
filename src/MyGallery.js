@@ -1,10 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./styles/MyGallery.css"; // Import CSS for styling
 
+// Default images for preloading
+const defaultImages = [
+  "/defaultImages/image1.jpeg",
+  "/defaultImages/image2.jpeg",
+  "/defaultImages/image3.jpeg",
+  "/defaultImages/image4.jpeg",
+  "/defaultImages/image5.jpeg",
+  "/defaultImages/image6.jpeg",
+  "/defaultImages/image7.png",
+  "fbaseImages/fbase1.jpg",
+  "fbaseImages/fbase2.jpg",
+  "fbaseImages/fbase4.jpg",
+];
+
 const MyGallery = () => {
   const navigate = useNavigate();
+
   const [selectedImages, setSelectedImages] = useState([]); // Holds selected images
+
+  // Preload images when component mounts
+  useEffect(() => {
+    setSelectedImages(defaultImages);
+  }, []);
 
   // Function to handle manual file selection (Hidden input)
   const handleImageUpload = (event) => {
@@ -89,8 +109,10 @@ const MyGallery = () => {
         onChange={handleImageUpload}
       />
 
-      {/* Upload Image at the Bottom (Just an Image, Not Clickable) */}
-      <img src="/upload.png" alt="Upload" className="upload-img" />
+      {/* Upload Image Button (Now Clickable and Navigates to Library.js) */}
+      <button className="upload-button" onClick={() => navigate("/StoryLibrary")}>
+        <img src="/upload.png" alt="Upload" className="upload-img" />
+      </button>
     </div>
   );
 };
