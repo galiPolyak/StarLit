@@ -4,13 +4,13 @@ import { getStorage } from "firebase/storage";
 
 // ✅ Your Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyA4sYUm6D1GNblVAdnQjPrEOVtX0uufKas",
-  authDomain: "starlit-eac09.firebaseapp.com",
-  projectId: "starlit-eac09",
-  storageBucket: "starlit-eac09.appspot.com",  // ✅ Fixed storageBucket URL
-  messagingSenderId: "14976273379",
-  appId: "1:14976273379:web:477b405d3efe07d06aeed6",
-  measurementId: "G-5BRHGJZJ9M"
+  apiKey: REACT_APP_FIREBASE_API_KEY,
+  authDomain: REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: REACT_APP_FIREBASE_STORAGE_BUCKET,  // ✅ Fixed storageBucket URL
+  messagingSenderId: REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: REACT_APP_FIREBASE_APP_ID,
+  measurementId: REACT_APP_FIREBASE_MEASUREMENT_ID
 };
 
 // ✅ Initialize Firebase
