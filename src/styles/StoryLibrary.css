@@ -1,17 +1,21 @@
 /* Full-page container with consistent background */
 .our-library-container {
   width: 100vw;
-  min-height: 100vh; /* Ensures background extends fully */
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #fdfaf6; /* Light beige for paper feel */
-  padding: 20px;
-  
+  padding: 10px;
+
   /* Lined paper effect */
-  background-image: 
-      linear-gradient(to bottom, rgba(227, 227, 255, 0.4) 3px, transparent 20px);
-  background-size: 100% 32px; /* Line spacing */
+  background-image: repeating-linear-gradient(
+    to bottom, 
+    transparent 0px, 
+    transparent 28px, 
+    #d1d5db 29px /* Thin grey line */
+  );
+  background-size: 100% 30px; /* Line spacing */
 }
 
 /* Home Button */
@@ -33,7 +37,7 @@
   width: 80%;  
   max-width: 800px;
   height: auto;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   margin-top: 30px;
 }
 
@@ -49,7 +53,7 @@
 .story-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Bigger cards */
-  gap: 20px;
+  gap: 30px;
   width: 90%;
   max-width: 1200px;
   justify-content: center;
@@ -57,16 +61,42 @@
 
 /* Story Card - Increased Size */
 .story-card {
+  position: relative; /* Needed for delete button positioning */
   border: 2px solid #ccc;
   border-radius: 10px;
-  padding: 15px;
+  padding: 20px;
   background-color: #fff;
   text-align: center;
-  width: 350px; /* Bigger width */
-  min-height: 450px; /* Taller cards for full text */
+  width: 350px;
+  min-height: 450px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  border-color: rgb(248, 228, 140);
+  border-width: 5px;
+  border-radius: 20px;
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Hover effect - Slight enlargement */
+.story-card:hover {
+  transform: scale(1.03);
+}
+
+/* Delete Button (Top Right Corner) */
+.delete-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 20px; /* Adjust size */
+  height: 20px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Change color to red on hover */
+.delete-icon:hover {
+  transform: scale(1.1);
+  filter: brightness(0) saturate(100%) invert(19%) sepia(93%) saturate(7497%) hue-rotate(359deg) brightness(104%) contrast(115%);
 }
 
 /* Story Title */
@@ -78,14 +108,14 @@
 
 /* Story Image */
 .story-image {
-  width: 100%;
-  height: 200px;
+  width: auto;
+  height: 300px;
   object-fit: cover;
   border-radius: 8px;
   margin-bottom: 10px;
 }
 
-/* Story Text - Now Fully Visible */
+/* Story Text */
 .story-text {
   font-size: 16px;
   color: #333;

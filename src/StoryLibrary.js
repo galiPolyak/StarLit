@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { db } from "./firebaseConfig"; // ✅ Import Firebase Firestore config
 import "./styles/StoryLibrary.css"; // Import CSS for styling
 
@@ -32,6 +32,17 @@ const StoryLibrary = () => {
     fetchStories();
   }, []);
 
+  // ✅ Function to delete a story
+  const handleDeleteStory = async (storyId) => {
+    try {
+      await deleteDoc(doc(db, "stories", storyId));
+      setStories(stories.filter((story) => story.id !== storyId)); // Remove from UI
+    } catch (err) {
+      console.error("Error deleting story:", err);
+      setError("Failed to delete story. Please try again.");
+    }
+  };
+
   return (
     <div className="our-library-container">
       {/* Home Button */}
@@ -49,6 +60,14 @@ const StoryLibrary = () => {
         {stories.length > 0 ? (
           stories.map((story) => (
             <div key={story.id} className="story-card">
+              {/* Delete Button with Trash Icon (Top Right) */}
+              <img
+                src="/trash.png"
+                alt="Delete"
+                className="delete-icon"
+                onClick={() => handleDeleteStory(story.id)}
+              />
+
               <h3 className="story-title">{story.title}</h3>
               <img src={story.imageUrl} alt={story.title} className="story-image" />
               <p className="story-text">{story.story}</p>

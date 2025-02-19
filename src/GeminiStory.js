@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytes } from "firebase/storage";
 import { collection, addDoc } from "firebase/firestore";
 import { db, storage } from "./firebaseConfig"; // ✅ Import Firebase config
 import "./styles/GeminiStory.css"; // Import CSS for styling
@@ -12,8 +12,8 @@ const GeminiStory = () => {
   const title = location.state?.title || "Untitled Artwork"; // Received title
   const story = location.state?.story || "No story available."; // Received story
 
-  // ✅ State to Track Upload Status
-  const [uploadStatus, setUploadStatus] = useState("Uploading...");
+  // ✅ Prevent multiple uploads using useRef
+  const hasUploaded = useRef(false);
 
   // ✅ Text-to-Speech (TTS) State
   const [speechSynth, setSpeechSynth] = useState(null);
@@ -23,93 +23,75 @@ const GeminiStory = () => {
   const [selectedVoice, setSelectedVoice] = useState(null);
   const [rate, setRate] = useState(1);
   const [pitch, setPitch] = useState(1);
-
   const [fontSize, setFontSize] = useState(16); // Default font size
 
-  // ✅ Function to Generate Proper Firebase Storage URL
-  const formatFirebaseURL = (filePath) => {
-    return `https://firebasestorage.googleapis.com/v0/b/starlit-eac09.appspot.com/o/${encodeURIComponent(filePath)}?alt=media`;
-  };
-
-  // ✅ Wrap `uploadStoryToFirebase` in useCallback to prevent re-creation
+  // ✅ Upload Story to Firebase (Only Once)
   const uploadStoryToFirebase = useCallback(async () => {
+    if (hasUploaded.current) return; // Prevent duplicate uploads
+
     try {
-      console.log("📤 Checking image format...");
+      let imageUrl = imageSrc;
 
-      let imageUrl = imageSrc; // Default to existing image URL
-
-      // ✅ Convert image to Blob if it's a local file (blob:)
+      // ✅ Convert image to Blob if needed
       if (imageSrc.startsWith("blob:")) {
-        console.log("🖼️ Image is a Blob. Fetching image file...");
         const response = await fetch(imageSrc);
         const blob = await response.blob();
         const file = new File([blob], `${Date.now()}_artwork.jpg`, { type: "image/jpeg" });
 
-        console.log("✅ Image file created:", file.name);
-
         // ✅ Upload Image to Firebase Storage
         const storagePath = `artwork/${file.name}`;
         const storageRef = ref(storage, storagePath);
-        console.log("📂 Uploading image to Firebase Storage:", storageRef.fullPath);
         await uploadBytes(storageRef, file);
-        console.log("✅ Image uploaded successfully!");
-
-        // ✅ Get Download URL
-        imageUrl = formatFirebaseURL(storagePath);
-        console.log("🔗 Image URL (Fixed):", imageUrl);
-      } else {
-        console.log("🖼️ Image is NOT a Blob. Using existing URL:", imageSrc);
       }
 
-      // ✅ Save Story Details in Firestore
-      console.log("📚 Saving story to Firestore...");
-      const docRef = await addDoc(collection(db, "stories"), {
+      // ✅ Save Story to Firestore
+      await addDoc(collection(db, "stories"), {
         title,
         story,
         imageUrl,
         timestamp: new Date(),
       });
 
-      console.log("✅ Story uploaded successfully! Document ID:", docRef.id);
-      setUploadStatus("Upload Successful! 🎉");
+      hasUploaded.current = true; // ✅ Prevent re-uploads
     } catch (error) {
-      console.error("❌ Upload failed:", error);
-      setUploadStatus("Upload Failed ❌");
+      console.error("❌ Upload Failed:", error);
     }
-  }, [imageSrc, title, story]);
+  }, [imageSrc, title, story]); // ✅ Dependencies added
 
-  // ✅ `useEffect` now has `uploadStoryToFirebase` as a dependency
+  // ✅ useEffect runs only once to upload the story
   useEffect(() => {
-    console.log("🔥 Starting Firebase upload process...");
-    uploadStoryToFirebase();
+    uploadStoryToFirebase(); // ✅ Calls upload only once
 
     // ✅ Initialize Speech Synthesis
     if ("speechSynthesis" in window) {
       const synth = window.speechSynthesis;
       setSpeechSynth(synth);
-
-      const availableVoices = synth.getVoices();
-      setVoices(availableVoices);
+      setVoices(synth.getVoices());
 
       const newUtterance = new SpeechSynthesisUtterance(story);
       newUtterance.lang = "en-US";
-      newUtterance.rate = rate;
-      newUtterance.pitch = pitch;
-      newUtterance.onend = () => setIsPlaying(false);
-
       setUtterance(newUtterance);
     } else {
       alert("Text-to-Speech is not supported in your browser.");
     }
-  }, [uploadStoryToFirebase, story, rate, pitch]);
+  }, [uploadStoryToFirebase, story]); // ✅ Dependencies added to prevent missing dependency warning
 
-  // ✅ Handle Play TTS
+  // ✅ Update utterance when rate, pitch, or voice changes
+  useEffect(() => {
+    if (utterance) {
+      utterance.rate = rate;
+      utterance.pitch = pitch;
+      utterance.voice = selectedVoice;
+    }
+  }, [rate, pitch, selectedVoice, utterance]); // ✅ Added `utterance` to dependencies
+
+  // ✅ Handle Play TTS with latest pitch/speed
   const handlePlay = () => {
     if (speechSynth && utterance) {
-      speechSynth.cancel(); // Stop previous speech
-      if (selectedVoice) {
-        utterance.voice = selectedVoice;
-      }
+      speechSynth.cancel();
+      utterance.rate = rate;
+      utterance.pitch = pitch;
+      if (selectedVoice) utterance.voice = selectedVoice;
       speechSynth.speak(utterance);
       setIsPlaying(true);
     }
@@ -123,19 +105,11 @@ const GeminiStory = () => {
     }
   };
 
-  // ✅ Handle Resume TTS
+  // ✅ Handle Resume TTS with latest pitch/speed
   const handleResume = () => {
     if (speechSynth) {
       speechSynth.resume();
       setIsPlaying(true);
-    }
-  };
-
-  // ✅ Handle Stop TTS
-  const handleStop = () => {
-    if (speechSynth) {
-      speechSynth.cancel();
-      setIsPlaying(false);
     }
   };
 
@@ -144,16 +118,13 @@ const GeminiStory = () => {
       {/* Home Button */}
       <img src="/home.png" alt="Home" className="home-button" onClick={() => navigate("/")} />
 
-      {/* Upload Status */}
-      <div className="upload-status">{uploadStatus}</div>
-
       {/* Display Artwork Title */}
       <h1 className="story-title">{title}</h1>
 
       {/* Display Artwork Image */}
       <img src={imageSrc} alt="Artwork" className="artwork-img" />
 
-      {/* ✅ Font Size Meter (Above Story Box) */}
+      {/* ✅ Font Size Meter */}
       <div className="font-size-controls">
         <label>Font Size:</label>
         <input
@@ -186,7 +157,6 @@ const GeminiStory = () => {
 
         {/* ✅ Voice & Speed Controls */}
         <div className="tts-settings">
-          {/* ✅ Voice Selection with Space */}
           <div className="tts-control-group">
             <label>Voice:</label>
             <select onChange={(e) => setSelectedVoice(voices.find(v => v.name === e.target.value))}>
@@ -196,16 +166,14 @@ const GeminiStory = () => {
             </select>
           </div>
 
-          {/* ✅ Speed Control with Space */}
           <div className="tts-control-group">
             <label>Speed:</label>
-            <input type="range" min="0.5" max="2" step="0.1" value={rate} onChange={(e) => setRate(e.target.value)} />
+            <input type="range" min="0.5" max="2" step="0.1" value={rate} onChange={(e) => setRate(parseFloat(e.target.value))} />
           </div>
 
-          {/* ✅ Pitch Control with Space */}
           <div className="tts-control-group">
             <label>Pitch:</label>
-            <input type="range" min="0.5" max="2" step="0.1" value={pitch} onChange={(e) => setPitch(e.target.value)} />
+            <input type="range" min="0.5" max="2" step="0.1" value={pitch} onChange={(e) => setPitch(parseFloat(e.target.value))} />
           </div>
         </div>
       </div>

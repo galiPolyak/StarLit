@@ -27,6 +27,12 @@ const App = () => {
           onClick={() => navigate("/MyGallery")}
         />
       </div>
+
+      {/* Bottom-Left Image */}
+      <img src="/homeImages1.png" alt="Decorative graphic" className="bottom-left-image" />
+
+      {/* Bottom-Right Image */}
+      <img src="/homeImages2.png" alt="Decorative artwork" className="bottom-right-image" />
     </div>
   );
 };

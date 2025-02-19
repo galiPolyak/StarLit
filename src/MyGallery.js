@@ -73,13 +73,17 @@ const MyGallery = () => {
         className="home-button"
         onClick={() => navigate("/")} // Navigate back to App.js
       />
+
       {/* My Gallery Image at the Top */}
       <img src="/my_gallery.png" alt="My Gallery" className="my-gallery-img" />
 
-      {/* Request Access Button */}
-      <button className="access-button" onClick={handleFolderAccess}>
-        Allow Access to Photos
-      </button>
+      {/* Upload Files Image (Replaces Access Button) */}
+      <img
+        src="/uploadFiles.png"
+        alt="Upload Files"
+        className="upload-files-icon"
+        onClick={handleFolderAccess} // Calls the same function as before
+      />
 
       {/* Image Carousel */}
       <div className="carousel-container">

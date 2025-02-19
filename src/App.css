@@ -8,6 +8,16 @@
   justify-content: center;
   background-color: #ffffff;
   flex-direction: column;
+  position: fixed;
+
+  /* Lined paper effect */
+  background-image: repeating-linear-gradient(
+    to bottom, 
+    transparent 0px, 
+    transparent 28px, 
+    #d1d5db 29px /* Thin grey line */
+  );
+  background-size: 100% 30px; /* Line spacing */
 }
 
 /* Centered Logo & Play Button */
@@ -40,7 +50,7 @@
   position: absolute;
   top: 20px;
   left: 20px;
-  width: 100px;
+  width: 200px;
   cursor: pointer;
   transition: transform 0.2s;
 }
@@ -49,3 +59,20 @@
   transform: scale(1.1);
 }
 
+/* Bottom-Left Image */
+.bottom-left-image {
+  position: absolute;
+  bottom: 0px;
+  left: -10px;
+  max-width: 500px; /* Adjust size as needed */
+  height: auto;
+}
+
+/* Bottom-Right Image */
+.bottom-right-image {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  max-width: 300px; /* Adjust size as needed */
+  height: auto;
+}
